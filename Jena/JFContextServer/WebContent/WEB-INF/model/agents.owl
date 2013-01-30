@@ -1,0 +1,224 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY agents "http://swe.unisinos.br/ont/agents#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://swe.unisinos.br/ont/agents#"
+     xml:base="http://swe.unisinos.br/ont/agents"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:agents="http://swe.unisinos.br/ont/agents#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://swe.unisinos.br/ont/agents"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://swe.unisinos.br/ont/agents#hasApplication -->
+
+    <owl:ObjectProperty rdf:about="&agents;hasApplication">
+        <rdfs:range rdf:resource="&agents;Application"/>
+        <rdfs:domain rdf:resource="&agents;MobileDevice"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/agents#hasProfile -->
+
+    <owl:ObjectProperty rdf:about="&agents;hasProfile">
+        <rdfs:range rdf:resource="&agents;FacebookProfile"/>
+        <rdfs:domain rdf:resource="&agents;Person"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/agents#isOwnedBy -->
+
+    <owl:ObjectProperty rdf:about="&agents;isOwnedBy"/>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/agents#ownA -->
+
+    <owl:ObjectProperty rdf:about="&agents;ownA">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:range rdf:resource="&agents;MobileDevice"/>
+        <rdfs:domain rdf:resource="&agents;Person"/>
+        <owl:inverseOf rdf:resource="&agents;isOwnedBy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://swe.unisinos.br/ont/agents#facebookID -->
+
+    <owl:DatatypeProperty rdf:about="&agents;facebookID">
+        <rdfs:domain rdf:resource="&agents;FacebookProfile"/>
+        <rdfs:range rdf:resource="&xsd;long"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/agents#maker -->
+
+    <owl:DatatypeProperty rdf:about="&agents;maker">
+        <rdfs:domain rdf:resource="&agents;Hardware"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/agents#memoryAvailable -->
+
+    <owl:DatatypeProperty rdf:about="&agents;memoryAvailable">
+        <rdfs:domain rdf:resource="&agents;Hardware"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/agents#model -->
+
+    <owl:DatatypeProperty rdf:about="&agents;model">
+        <rdfs:domain rdf:resource="&agents;Hardware"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/agents#name -->
+
+    <owl:DatatypeProperty rdf:about="&agents;name">
+        <rdfs:domain rdf:resource="&agents;Software"/>
+        <rdfs:range rdf:resource="&xsd;string"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/agents#version -->
+
+    <owl:DatatypeProperty rdf:about="&agents;version">
+        <rdfs:domain rdf:resource="&agents;Software"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://swe.unisinos.br/ont/agents#Application -->
+
+    <owl:Class rdf:about="&agents;Application">
+        <rdfs:subClassOf rdf:resource="&agents;Software"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/agents#FacebookProfile -->
+
+    <owl:Class rdf:about="&agents;FacebookProfile"/>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/agents#Hardware -->
+
+    <owl:Class rdf:about="&agents;Hardware"/>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/agents#MobileDevice -->
+
+    <owl:Class rdf:about="&agents;MobileDevice">
+        <rdfs:subClassOf rdf:resource="&agents;Hardware"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/agents#Person -->
+
+    <owl:Class rdf:about="&agents;Person">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="&agents;hasProfile"/>
+                <owl:allValuesFrom rdf:resource="&agents;FacebookProfile"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/agents#Software -->
+
+    <owl:Class rdf:about="&agents;Software"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://swe.unisinos.br/ont/agents#Paulo -->
+
+    <owl:NamedIndividual rdf:about="&agents;Paulo">
+        <rdf:type rdf:resource="&agents;FacebookProfile"/>
+        <rdf:type rdf:resource="&agents;Person"/>
+        <agents:facebookID rdf:datatype="&xsd;long">100000579436195</agents:facebookID>
+        <agents:hasProfile rdf:resource="&agents;Paulo"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.3.1957) http://owlapi.sourceforge.net -->
+
