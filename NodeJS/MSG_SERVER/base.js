@@ -61,6 +61,13 @@ function onRequest(request, response) {
     });
     
     request.on("end", function () {
+        console.log("incoming request:");
+        console.log(request.content);
+        
+        response.writeHead(200, {"Content-Type": "text/plain"});
+        response.write(request.content);
+        response.end();
+        return; // just echo
         if(server_option != "any") {
             if(!user_key) {
                 user_util.notFound(response);

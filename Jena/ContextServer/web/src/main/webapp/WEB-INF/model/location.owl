@@ -1,0 +1,509 @@
+<?xml version="1.0"?>
+
+
+<!DOCTYPE rdf:RDF [
+    <!ENTITY owl "http://www.w3.org/2002/07/owl#" >
+    <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#" >
+    <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#" >
+    <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#" >
+]>
+
+
+<rdf:RDF xmlns="http://swe.unisinos.br/ont/location#"
+     xml:base="http://swe.unisinos.br/ont/location"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+    <owl:Ontology rdf:about="http://swe.unisinos.br/ont/location"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Annotation properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Datatypes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#geopoliticalSubdivision -->
+
+    <owl:ObjectProperty rdf:about="http://swe.unisinos.br/ont/location#geopoliticalSubdivision">
+        <rdfs:label>geopoliticalSubdivision</rdfs:label>
+        <rdfs:domain rdf:resource="http://swe.unisinos.br/ont/location#GeopoliticalEntity"/>
+        <rdfs:range rdf:resource="http://swe.unisinos.br/ont/location#GeopoliticalEntity"/>
+        <rdfs:subPropertyOf rdf:resource="http://swe.unisinos.br/ont/location#inRegion"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#hasCoordinate -->
+
+    <owl:ObjectProperty rdf:about="http://swe.unisinos.br/ont/location#hasCoordinate">
+        <rdfs:range rdf:resource="http://swe.unisinos.br/ont/location#GeoCoordinates"/>
+        <rdfs:domain rdf:resource="http://swe.unisinos.br/ont/location#Shape"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#hasPart -->
+
+    <owl:ObjectProperty rdf:about="http://swe.unisinos.br/ont/location#hasPart">
+        <rdfs:label>hasPart</rdfs:label>
+        <owl:inverseOf rdf:resource="http://swe.unisinos.br/ont/location#partOf"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#hasShape -->
+
+    <owl:ObjectProperty rdf:about="http://swe.unisinos.br/ont/location#hasShape">
+        <rdfs:domain rdf:resource="http://swe.unisinos.br/ont/location#AtomicPlace"/>
+        <rdfs:range rdf:resource="http://swe.unisinos.br/ont/location#Shape"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#inRegion -->
+
+    <owl:ObjectProperty rdf:about="http://swe.unisinos.br/ont/location#inRegion">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:label>inRegion</rdfs:label>
+        <rdfs:domain rdf:resource="http://swe.unisinos.br/ont/location#SpatialThing"/>
+        <rdfs:range rdf:resource="http://swe.unisinos.br/ont/location#SpatialThing"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#objectFoundInLocation -->
+
+    <owl:ObjectProperty rdf:about="http://swe.unisinos.br/ont/location#objectFoundInLocation">
+        <rdfs:label>objectFoundInLocation</rdfs:label>
+        <rdfs:range rdf:resource="http://swe.unisinos.br/ont/location#SpaceInAFixedHOC"/>
+        <rdfs:subPropertyOf rdf:resource="http://swe.unisinos.br/ont/location#inRegion"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#partOf -->
+
+    <owl:ObjectProperty rdf:about="http://swe.unisinos.br/ont/location#partOf">
+        <rdf:type rdf:resource="&owl;TransitiveProperty"/>
+        <rdfs:label>partOf</rdfs:label>
+        <rdfs:domain rdf:resource="http://swe.unisinos.br/ont/location#Place"/>
+        <rdfs:range rdf:resource="http://swe.unisinos.br/ont/location#Place"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#physicalParts -->
+
+    <owl:ObjectProperty rdf:about="http://swe.unisinos.br/ont/location#physicalParts">
+        <rdfs:label>phyiscalParts</rdfs:label>
+        <rdfs:domain rdf:resource="http://swe.unisinos.br/ont/location#FixedStructure"/>
+        <rdfs:range rdf:resource="http://swe.unisinos.br/ont/location#GeopoliticalEntity"/>
+        <rdfs:subPropertyOf rdf:resource="http://swe.unisinos.br/ont/location#inRegion"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#spatiallySubsumedBy -->
+
+    <owl:ObjectProperty rdf:about="http://swe.unisinos.br/ont/location#spatiallySubsumedBy">
+        <rdfs:label>spatiallySubsumedBy</rdfs:label>
+        <rdfs:range rdf:resource="http://swe.unisinos.br/ont/location#FixedStructure"/>
+        <rdfs:domain rdf:resource="http://swe.unisinos.br/ont/location#SpaceInAFixedHOC"/>
+        <rdfs:subPropertyOf rdf:resource="http://swe.unisinos.br/ont/location#inRegion"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#latitude -->
+
+    <owl:DatatypeProperty rdf:about="http://swe.unisinos.br/ont/location#latitude">
+        <rdfs:domain rdf:resource="http://swe.unisinos.br/ont/location#GeoCoordinates"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#longitude -->
+
+    <owl:DatatypeProperty rdf:about="http://swe.unisinos.br/ont/location#longitude">
+        <rdfs:domain rdf:resource="http://swe.unisinos.br/ont/location#GeoCoordinates"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#radius -->
+
+    <owl:DatatypeProperty rdf:about="http://swe.unisinos.br/ont/location#radius">
+        <rdfs:domain rdf:resource="http://swe.unisinos.br/ont/location#Circle"/>
+        <rdfs:range rdf:resource="&xsd;double"/>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#AtomicPlace -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#AtomicPlace">
+        <rdfs:label>AtomicPlace</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#Place"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swe.unisinos.br/ont/location#hasPart"/>
+                <owl:cardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:cardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swe.unisinos.br/ont/location#partOf"/>
+                <owl:allValuesFrom rdf:resource="http://swe.unisinos.br/ont/location#CompoundPlace"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swe.unisinos.br/ont/location#hasShape"/>
+                <owl:onClass rdf:resource="http://swe.unisinos.br/ont/location#Shape"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <owl:disjointWith rdf:resource="http://swe.unisinos.br/ont/location#CompoundPlace"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#Building -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#Building">
+        <rdfs:label>Building</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#FixedStructure"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#Circle -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#Circle">
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#Shape"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swe.unisinos.br/ont/location#radius"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;double"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swe.unisinos.br/ont/location#hasCoordinate"/>
+                <owl:onClass rdf:resource="http://swe.unisinos.br/ont/location#GeoCoordinates"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#City -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#City">
+        <rdfs:label>City</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#GeopoliticalEntity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#Company -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#Company">
+        <rdfs:label>Company</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#GeopoliticalEntity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#CompoundPlace -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#CompoundPlace">
+        <rdfs:label>CompoundPlace</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#Place"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swe.unisinos.br/ont/location#hasPart"/>
+                <owl:allValuesFrom rdf:resource="http://swe.unisinos.br/ont/location#Place"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swe.unisinos.br/ont/location#partOf"/>
+                <owl:allValuesFrom rdf:resource="http://swe.unisinos.br/ont/location#CompoundPlace"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#Country -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#Country">
+        <rdfs:label>Country</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#GeopoliticalEntity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#FixedStructure -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#FixedStructure">
+        <rdfs:label>FixedStructure</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#GeographicalThing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#FloorInBuilding -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#FloorInBuilding">
+        <rdfs:label>FloorInBuilding</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#FixedStructure"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#GeoCoordinates -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#GeoCoordinates">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swe.unisinos.br/ont/location#latitude"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;double"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swe.unisinos.br/ont/location#longitude"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+                <owl:onDataRange rdf:resource="&xsd;double"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#GeographicalRegion -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#GeographicalRegion">
+        <rdfs:label>GeographicalRegion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#GeographicalThing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#GeographicalThing -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#GeographicalThing">
+        <rdfs:label>GeographicalThing</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#SpatialThing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#GeopoliticalEntity -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#GeopoliticalEntity">
+        <rdfs:label>GeopoliticalRegion</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#GeographicalRegion"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#Home -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#Home">
+        <rdfs:label>Home</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#GeopoliticalEntity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#Place -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#Place">
+        <rdfs:label>Place</rdfs:label>
+        <owl:equivalentClass>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://swe.unisinos.br/ont/location#AtomicPlace"/>
+                    <rdf:Description rdf:about="http://swe.unisinos.br/ont/location#CompoundPlace"/>
+                </owl:unionOf>
+            </owl:Class>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#SpatialThing"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#Polygon -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#Polygon">
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#Shape"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#Rectangle -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#Rectangle">
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#Shape"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swe.unisinos.br/ont/location#hasCoordinate"/>
+                <owl:onClass rdf:resource="http://swe.unisinos.br/ont/location#GeoCoordinates"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#Room -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#Room">
+        <rdfs:label>Room</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#SpaceInAFixedHOC"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#Shape -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#Shape"/>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#SinglePoint -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#SinglePoint">
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#Shape"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://swe.unisinos.br/ont/location#hasCoordinate"/>
+                <owl:onClass rdf:resource="http://swe.unisinos.br/ont/location#GeoCoordinates"/>
+                <owl:qualifiedCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:qualifiedCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#SpaceInAFixedHOC -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#SpaceInAFixedHOC">
+        <rdfs:label>SpaceInAFixedHOC</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#GeographicalThing"/>
+        <rdfs:comment>
+      HOC stands for Human Occupation Construct
+    </rdfs:comment>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#SpatialThing -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#SpatialThing">
+        <rdfs:label>SpatialThing</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#State -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#State">
+        <rdfs:label>Country</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#GeopoliticalEntity"/>
+    </owl:Class>
+    
+
+
+    <!-- http://swe.unisinos.br/ont/location#University -->
+
+    <owl:Class rdf:about="http://swe.unisinos.br/ont/location#University">
+        <rdfs:label>University</rdfs:label>
+        <rdfs:subClassOf rdf:resource="http://swe.unisinos.br/ont/location#GeopoliticalEntity"/>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // General axioms
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    <rdf:Description>
+        <rdf:type rdf:resource="&owl;AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://swe.unisinos.br/ont/location#Circle"/>
+            <rdf:Description rdf:about="http://swe.unisinos.br/ont/location#Polygon"/>
+            <rdf:Description rdf:about="http://swe.unisinos.br/ont/location#Rectangle"/>
+            <rdf:Description rdf:about="http://swe.unisinos.br/ont/location#SinglePoint"/>
+        </owl:members>
+    </rdf:Description>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 3.3.1957) http://owlapi.sourceforge.net -->
+
