@@ -6,12 +6,19 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.util.ArrayList;
+import java.util.Enumeration;
 import java.util.List;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import br.unisinos.swe.embbeded.agentjs.PiServer;
 
 public class AgentManager {
 
@@ -29,6 +36,21 @@ public class AgentManager {
 			folder.mkdirs();
 		}
 		readAgents();
+		
+		Thread readerThread = new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(60 * 1000); // wait for 1 minute
+					readAgents(); //reload agents
+				} catch (InterruptedException e) {
+				} 
+				
+			}
+		});
+		
+		readerThread.start();
 		
 	}
 
@@ -71,12 +93,46 @@ public class AgentManager {
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
+					newScript.setId(agentScriptFile.getName());
 					newScript.setName(agentScriptFile.getName());
 					newScript.setSourceCode(agentSourceCode.toString());
 					agents.add(newScript);
 				}
 			}
+			
+			AgentScript newScript = new AgentScript();
+			newScript.setId("aula.js");
+			newScript.setName("Docs da aula de hoje");
+			try {
+				String ipv4 = getCurrentIp();
+				if(ipv4 != null) {
+					newScript.setSourceCode("agent.apps.launchAppForUrl('http://"+ipv4+":8080/pi');");
+					agents.add(newScript);
+				}
+			} catch(Exception e) {
+				
+			}
 		}
+	}
+
+	private String getCurrentIp() throws SocketException {
+		Enumeration<NetworkInterface> interfaces = NetworkInterface.getNetworkInterfaces();
+		while (interfaces.hasMoreElements()){
+		    NetworkInterface current = interfaces.nextElement();
+
+		    if (!current.isUp() || current.isLoopback() || current.isVirtual()) 
+		    	continue;
+		    
+		    Enumeration<InetAddress> addresses = current.getInetAddresses();
+		    while (addresses.hasMoreElements()){
+		        InetAddress current_addr = addresses.nextElement();
+		        if (current_addr.isLoopbackAddress()) continue;
+		        
+		        if(current_addr instanceof Inet4Address)
+		        	return current_addr.getHostAddress();
+		    }
+		}
+		return null;
 	}
 
 	public JSONArray getAgentList() throws JSONException {

@@ -9,6 +9,7 @@ import com.hp.hpl.jena.rdf.model.Property;
 
 public class Vocabulary {
 	
+	@SuppressWarnings("rawtypes")
 	public static void initialize(OntologyManager manager) {
 		//Time.Classes.Instant = manager.getModel().getOntClass("http://swe.unisinos.br/ont/time#Instant");
 		//Time.DataProperties.Timezone = manager.getModel().getProperty("http://swe.unisinos.br/ont/time#timezone");
@@ -143,8 +144,15 @@ public class Vocabulary {
 			public static OntClass MobileDevice = null;
 			@IVocabulary(type = IVocabulary.Types.Class, uri ="Software")
 			public static OntClass Software = null;
+			@IVocabulary(type = IVocabulary.Types.Class, uri ="AgentJS")
+			public static OntClass AgentJS = null;
 			@IVocabulary(type = IVocabulary.Types.Class, uri ="Application")
 			public static OntClass Application = null;
+		}
+		
+		public static class ObjectProperties {
+			@IVocabulary(type = IVocabulary.Types.ObjectProperty, uri ="ownAgent")
+			public static Property ownAgent = null;
 		}
 		
 		public static class DataProperties {
@@ -160,6 +168,10 @@ public class Vocabulary {
 			public static Property Model = null;
 			@IVocabulary(type = IVocabulary.Types.DataProperty, uri ="name")
 			public static Property Name = null;
+			@IVocabulary(type = IVocabulary.Types.DataProperty, uri ="uuid")
+			public static Property Uuid = null;
+			@IVocabulary(type = IVocabulary.Types.DataProperty, uri ="sourceCode")
+			public static Property SourceCode = null;
 			@IVocabulary(type = IVocabulary.Types.DataProperty, uri ="version")
 			public static Property Version = null;
 		}

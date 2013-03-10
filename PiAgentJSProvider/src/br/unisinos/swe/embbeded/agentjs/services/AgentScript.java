@@ -18,6 +18,12 @@ public class AgentScript {
 		return this._id;
 	}
 	
+
+	
+	public void setId(String id) {
+		this._id = id;
+	}
+	
 	public void setName(String name) {
 		_name = name;
 	}

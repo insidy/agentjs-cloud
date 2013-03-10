@@ -1,5 +1,7 @@
 package br.unisinos.swe.agentjs.web.onto;
 
+import br.unisinos.swe.hbase.rdf.layout.simple.StoreSimple;
+
 import com.hp.hpl.jena.ontology.OntClass;
 import com.hp.hpl.jena.ontology.OntDocumentManager;
 import com.hp.hpl.jena.ontology.OntModel;
@@ -10,7 +12,6 @@ import com.talis.hbase.rdf.HBaseRdfFactory;
 import com.talis.hbase.rdf.Store;
 import com.talis.hbase.rdf.StoreDesc;
 import com.talis.hbase.rdf.connection.HBaseRdfConnection;
-import com.talis.hbase.rdf.layout.simple.StoreSimple;
 import com.talis.hbase.rdf.store.LayoutType;
 
 public class OntologyManager {
@@ -23,7 +24,7 @@ public class OntologyManager {
 	private Model baseModel = null;
 	private OntModel onto = null;
 	
-	private boolean refresh = true;
+	private boolean refresh = false;
 	
 	private OntologyManager(OntologyContext initializationContext) {
 		userHome = System.getProperty("user.home");
@@ -48,6 +49,10 @@ public class OntologyManager {
 		return _instance;
 	}
 	
+	public Model getBaseModel() {
+		return baseModel;
+	}
+	
 	public OntModel getModel() {
 		return onto;
 	}
@@ -67,14 +72,17 @@ public class OntologyManager {
 			"http://swe.unisinos.br/ont/context"
 		};
 		
-		onto = ModelFactory.createOntologyModel( OntModelSpec.OWL_MEM_RULE_INF );
 		
-		OntDocumentManager dm = onto.getDocumentManager();
+		
+		OntModelSpec spec = new OntModelSpec( OntModelSpec.OWL_MEM_RULE_INF );
+		
+		OntDocumentManager dm = spec.getDocumentManager();
 		for(int idx = 0; idx < arquivos.length; idx++) {
 			dm.addAltEntry(namespace[idx], "file:" + arquivos[idx]);
 		}
 		
-		onto.add(baseModel);
+		onto = ModelFactory.createOntologyModel( spec, baseModel );
+		
 		
 		OntClass testCls = onto.getOntClass("http://swe.unisinos.br/ont/agents#Person");
 		
@@ -83,7 +91,7 @@ public class OntologyManager {
 			for(int idx = 0; idx < arquivos.length; idx++) {
 				onto.read("file:" + arquivos[idx]);
 			}
-			//onto.commit();
+			onto.commit();
 		}
 		
 	}
@@ -92,17 +100,21 @@ public class OntologyManager {
 		if( ss == null )
 		{
 			HBaseRdfConnection conn = HBaseRdfFactory.createConnection( userHome + hbaseConf , false ) ;
-			StoreDesc desc = new StoreDesc( LayoutType.LayoutSimple, "ss" ) ;
+			StoreDesc desc = new StoreDesc( LayoutType.LayoutSimple, "agentjs" ) ;
 			ss = new StoreSimple( conn, desc ) ;
 			if(refresh) {
 				ss.getTableFormatter().format() ;
 			}
 		}
 		else {
-			ss.getTableFormatter().truncate();
+			//ss.getTableFormatter().truncate();
 		}
 		
 		baseModel = HBaseRdfFactory.connectDefaultModel( ss );
+	}
+
+	public Store getStore() {
+		return this.ss;
 	}
 	
 }

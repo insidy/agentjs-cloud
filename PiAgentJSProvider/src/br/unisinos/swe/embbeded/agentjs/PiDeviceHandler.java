@@ -35,15 +35,16 @@ public class PiDeviceHandler {
 						"v1"));
 
 		System.out.println(getClass().getClassLoader().getResource("icon.png").toExternalForm());
-		Icon icon = new Icon("image/png", 48, 48, 8, getClass().getClassLoader().getResource("icon.png"));
+		//Icon icon = new Icon("image/png", 48, 48, 8, getClass().getClassLoader().getResource("icon.png"));
 		
 
 		LocalService<AgentService> agentService = new AnnotationLocalServiceBinder().read(AgentService.class);
 
 		agentService.setManager(new DefaultServiceManager(agentService, AgentService.class)
 	    );
+		
 
-		return new LocalDevice(identity, type, details, icon, agentService);
+		return new LocalDevice(identity, type, details, agentService);
 	}
 
 }

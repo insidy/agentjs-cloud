@@ -12,7 +12,7 @@ public class PiServer implements Runnable {
 	 */
 	public static void main(String[] args) {
 		Thread serverThread = new Thread(new PiServer());
-		serverThread.setDaemon(false);
+		serverThread.setDaemon(true);
 		serverThread.start();
 	}
 

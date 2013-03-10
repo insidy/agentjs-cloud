@@ -26,7 +26,8 @@ public class ContextMapper {
 		Individual activity = getActivity(context, person);
 		
 		Individual newContext = generateContext(temporalThing, spacialThing, person, activity);
-		newContext.getModel().write(System.out);
+		OntologyManager.instance().getModel().commit();
+		//newContext.getModel().write(System.out);
 	}
 
 	private Individual generateContext(Individual when, Individual where, Resource who, Individual what) {
@@ -57,17 +58,17 @@ public class ContextMapper {
 		Resource existingPerson = null;
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT ?p ");
-		sb.append(MessageFormat.format("WHERE { ?p <http://swe.unisinos.br/ont/agents#facebookName> \"{0}\" } ", new Object[] { context.user.facebookNameId }));
+		sb.append("SELECT ?s ");
+		sb.append("WHERE { ?s <http://swe.unisinos.br/ont/agents#facebookName> ?o FILTER( ?o = \"" + context.user.facebookNameId + "\" ) } ");
 		
 		Query query = QueryFactory.create(sb.toString());
 
 		// Execute the query and obtain results
-		QueryExecution qe = QueryExecutionFactory.create(query, OntologyManager.instance().getModel());
+		QueryExecution qe = QueryExecutionFactory.create(query, OntologyManager.instance().getBaseModel());
 		ResultSet results = qe.execSelect();
 		
 		if(results.hasNext()) {
-			existingPerson = results.next().get("p").asResource();
+			existingPerson = results.next().get("s").asResource();
 		}
 		qe.close();
 		
@@ -79,8 +80,16 @@ public class ContextMapper {
 		newSpacePoint.addOntClass(Vocabulary.Location.Classes.SinglePoint);
 		//newSpacePoint.addOntClass(Vocabulary.Location.Classes.AtomicPlace);
 		
-		newSpacePoint.addLiteral(Vocabulary.Location.DataProperties.Latitude, context.location.latitude);
-		newSpacePoint.addLiteral(Vocabulary.Location.DataProperties.Longitude, context.location.longitude);
+		Double latitude = 0.0;
+		Double longitude = 0.0;
+		
+		if(context.location != null) {
+			latitude = context.location.latitude;
+			longitude = context.location.longitude;
+		}
+		
+		newSpacePoint.addLiteral(Vocabulary.Location.DataProperties.Latitude, latitude);
+		newSpacePoint.addLiteral(Vocabulary.Location.DataProperties.Longitude, longitude);
 		
 		newSpacePoint.addProperty(Vocabulary.Location.ObjectProperties.hasCoordinate, newSpacePoint);
 		//newSpacePoint.addProperty(Vocabulary.Location.ObjectProperties.hasShape, newSpacePoint);

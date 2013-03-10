@@ -15,6 +15,10 @@ import javax.ws.rs.core.UriInfo;
 
 import br.unisinos.swe.agentjs.web.onto.OntologyManager;
 
+import com.hp.hpl.jena.ontology.Individual;
+import com.hp.hpl.jena.ontology.OntClass;
+import com.hp.hpl.jena.ontology.OntModel;
+import com.hp.hpl.jena.query.Dataset;
 import com.hp.hpl.jena.query.Query;
 import com.hp.hpl.jena.query.QueryExecution;
 import com.hp.hpl.jena.query.QueryExecutionFactory;
@@ -22,6 +26,11 @@ import com.hp.hpl.jena.query.QueryFactory;
 import com.hp.hpl.jena.query.ResultSet;
 import com.hp.hpl.jena.query.ResultSetFormatter;
 import com.hp.hpl.jena.rdf.model.Model;
+import com.hp.hpl.jena.sparql.engine.QueryEngineFactory;
+import com.hp.hpl.jena.sparql.engine.QueryExecutionBase;
+import com.hp.hpl.jena.sparql.engine.ref.QueryEngineRef;
+import com.hp.hpl.jena.util.iterator.ExtendedIterator;
+import com.talis.hbase.rdf.store.DatasetStore;
 
 @Path("/query")
 public class QueryResource {
@@ -40,7 +49,7 @@ public class QueryResource {
 		Query query = QueryFactory.create(sparql);
 
 		// Execute the query and obtain results
-		QueryExecution qe = QueryExecutionFactory.create(query, OntologyManager.instance().getModel());
+		QueryExecution qe = QueryExecutionFactory.create(query, OntologyManager.instance().getBaseModel());
 		ResultSet results = qe.execSelect();
 		
 		OutputStream output = new OutputStream()
@@ -73,7 +82,7 @@ public class QueryResource {
 		Query query = QueryFactory.create(sparql);
 
 		// Execute the query and obtain results
-		QueryExecution qe = QueryExecutionFactory.create(query, OntologyManager.instance().getModel());
+		QueryExecution qe = QueryExecutionFactory.create(query, OntologyManager.instance().getBaseModel());
 		ResultSet results = qe.execSelect();
 		
 		OutputStream output = new OutputStream()
@@ -107,7 +116,7 @@ public class QueryResource {
 		Query query = QueryFactory.create(sparql);
 
 		// Execute the query and obtain results
-		QueryExecution qe = QueryExecutionFactory.create(query, OntologyManager.instance().getModel());
+		QueryExecution qe = QueryExecutionFactory.create(query, OntologyManager.instance().getBaseModel());
 		ResultSet results = qe.execSelect();
 		
 		OutputStream output = new OutputStream()
@@ -127,6 +136,39 @@ public class QueryResource {
 		
 		
 		qe.close();
+		
+		return output.toString();
+	}
+	
+	@Path("/test")
+	@POST
+	@Consumes(MediaType.TEXT_PLAIN)
+	@Produces(MediaType.APPLICATION_JSON)
+	public String test(String sparql) {
+		QueryEngineFactory f2 = QueryEngineRef.getFactory() ;
+		Query query = QueryFactory.create(sparql);
+        Dataset ds = DatasetStore.create( OntologyManager.instance().getStore() ) ;
+        QueryExecution qExec2 = new QueryExecutionBase( query, ds, null, f2 ) ;
+        
+        ResultSet results = qExec2.execSelect();
+		
+		OutputStream output = new OutputStream()
+	    {
+	        private StringBuilder string = new StringBuilder();
+	        @Override
+	        public void write(int b) throws IOException {
+	            this.string.append((char) b );
+	        }
+	        
+	        @Override
+	        public String toString(){
+	            return this.string.toString();
+	        }
+	    };
+	    ResultSetFormatter.out(output, results, query);
+		
+		
+	    qExec2.close();
 		
 		return output.toString();
 	}
